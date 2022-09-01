@@ -1,6 +1,16 @@
 # Starter React Typescript Ethers.js Hardhat Project
 
-init fork from:  https://github.com/ChainShot/hardhat-ethers-react-ts-starter.git
+Init fork from:  https://github.com/ChainShot/hardhat-ethers-react-ts-starter.git
+
+
+Fix new push for: --depth 1
+https://stackoverflow.com/questions/29748197/how-to-clone-seed-kick-start-project-without-the-whole-history
+
+git rev-parse --verify master >> .git/info/grafts
+git filter-branch -- --all
+git replace --convert-graft-file
+
+
 
 This repo contains a Hardhat and React Dapp starter project. The React Dapp in the `frontend` dir of this repo interacts with Hardhat's example `Greeter.sol` smart contract running on a local blockchain. The Hardhat `Greeter.sol` example contract is the boilerplate contract that Hardhat creates when creating a new Hardhat project via `yarn hardhat init`.
 
