@@ -41,9 +41,7 @@ export function Random(): ReactElement {
 
     function handleRndButtonClick(event: MouseEvent<HTMLButtonElement>): void {
         event.preventDefault();
-
         setCoin("Eagle")
-
     }
 
     return (
