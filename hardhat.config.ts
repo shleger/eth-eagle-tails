@@ -2,18 +2,41 @@ import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
 import * as dotenv from 'dotenv';
 
+dotenv.config();
 
 const config: HardhatUserConfig = {
     solidity: "0.8.9",
 };
 
+const chains = {
+    fuji: {
+        url: 'https://api.avax-test.network/ext/bc/C/rpc',
+        chainId: 43113,
+        forking: {
+            blockNumber: 7461390
+        },
+        contracts: {
+            usdcAddr: process.env.ACCOUNT_ADDRESS,
+        }
+    }
+};
 
-dotenv.config();
+
 module.exports = {
     solidity: "0.8.9",
     networks: {
         hardhat: {
             chainId: 1337 // We set 1337 to make interacting with MetaMask simpler
+        },
+        fuji: {
+            url: chains.fuji.url,
+            gasPrice: 225000000000,
+            chainId: chains.fuji.chainId,
+            accounts: process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+        },
+        goerli: {
+            url: process.env.ALCHEMY_API_URL,
+            accounts: [`0x${process.env.METAMASK_ACCOUNT2_PRIVATE_KEY}`]
         }
     }
 };
