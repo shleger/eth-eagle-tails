@@ -8,9 +8,12 @@ import {
     useState
 } from 'react';
 import styled from 'styled-components';
-import GreeterArtifact from '../artifacts/contracts/Greeter.sol/Greeter.json';
+
+import RandomArtifact from "../artifacts/contracts/Random.sol/Random.json"
 import { Provider } from '../utils/provider';
-import { SectionDivider } from './SectionDivider';
+
+
+
 
 const StyledRndLabel = styled.label`
     font-weight: bold;
@@ -36,12 +39,55 @@ const StyledRndButton = styled.button`
 
 export function Random(): ReactElement {
 
+    const context = useWeb3React<Provider>();
+    const { library, active } = context;
+
     const [coin, setCoin] = useState("empty")
+    const [signer, setSigner] = useState<Signer>();
+
+    useEffect((): void => {
+        if (!library) {
+            setSigner(undefined);
+            return;
+        }
+
+        setSigner(library.getSigner());
+    }, [library]);
+
 
 
     function handleRndButtonClick(event: MouseEvent<HTMLButtonElement>): void {
         event.preventDefault();
-        setCoin("Eagle")
+
+        // only deploy the Greeter contract one time, when a signer is defined
+        if (!signer) {
+            return;
+        }
+
+        async function getRandomContract(signer: Signer): Promise<void> {
+            const contractAddress = "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"
+
+            // Connect to the network, ver2:
+            // let provider = ethers.getDefaultProvider();
+
+            const rndContract = new ethers.ContractFactory(RandomArtifact.abi, RandomArtifact.bytecode, signer)
+
+
+            const rndContract2 = rndContract.attach(contractAddress)
+
+            const cc = await rndContract2.deployed()
+
+            /* const _coinSide = await rndContract.toss() */
+
+
+            setCoin(cc.address)
+
+        }
+
+        getRandomContract(signer)
+
+
+
     }
 
     return (
