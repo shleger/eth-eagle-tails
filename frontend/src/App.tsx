@@ -5,6 +5,7 @@ import { Greeter } from './components/Greeter';
 import { SectionDivider } from './components/SectionDivider';
 import { SignMessage } from './components/SignMessage';
 import { WalletStatus } from './components/WalletStatus';
+import { Random } from './components/Random';
 
 const StyledAppDiv = styled.div`
   display: grid;
@@ -23,6 +24,9 @@ export function App(): ReactElement {
             <SectionDivider />
             <Greeter />
             {/* add Token (send) contract here */}
+            <SectionDivider />
+            <Random />
+
         </StyledAppDiv>
     );
 }
