@@ -67,20 +67,9 @@ export function Random(): ReactElement {
         async function getRandomContract(signer: Signer): Promise<void> {
             const contractAddress = "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"
 
-            // Connect to the network, ver2:
-            // let provider = ethers.getDefaultProvider();
-
-            const rndContract = new ethers.ContractFactory(RandomArtifact.abi, RandomArtifact.bytecode, signer)
-
-
-            const rndContract2 = rndContract.attach(contractAddress)
-
-            const cc = await rndContract2.deployed()
-
-            /* const _coinSide = await rndContract.toss() */
-
-
-            setCoin(cc.address)
+            const RandomContract = new ethers.Contract(contractAddress, RandomArtifact.abi, signer)
+            const coinFromContract = await RandomContract.toss()
+            setCoin(coinFromContract)
 
         }
 
