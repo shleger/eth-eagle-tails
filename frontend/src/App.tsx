@@ -11,16 +11,18 @@ const StyledAppDiv = styled.div`
   grid-gap: 20px;
 `;
 
+
 export function App(): ReactElement {
-  return (
-    <StyledAppDiv>
-      <ActivateDeactivate />
-      <SectionDivider />
-      <WalletStatus />
-      <SectionDivider />
-      <SignMessage />
-      <SectionDivider />
-      <Greeter />
-    </StyledAppDiv>
-  );
+    return (
+        <StyledAppDiv>
+            <ActivateDeactivate />
+            <SectionDivider />
+            <WalletStatus />
+            <SectionDivider />
+            <SignMessage />
+            <SectionDivider />
+            <Greeter />
+            {/* add Token (send) contract here */}
+        </StyledAppDiv>
+    );
 }

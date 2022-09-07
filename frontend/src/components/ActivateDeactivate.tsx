@@ -61,6 +61,7 @@ const StyledDeactivateButton = styled.button`
   cursor: pointer;
 `;
 
+
 function Activate(): ReactElement {
     const context = useWeb3React<Provider>();
     const { activate, active } = context;
